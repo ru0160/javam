@@ -1,6 +1,8 @@
 package com.javamentor.calculate.servise;
 
-public class Ñalculation {
+public class MatematicOperationsNumber {
+	private static final String EXCEPTION_MESSAGE = "Wrong input format";
+
 	private int addition(int addendsOne, int addendsTwo) {
 		int sum = addendsOne + addendsTwo;
 		return sum;
@@ -31,6 +33,8 @@ public class Ñalculation {
 			result = multiplication(firstNumberInt, secondNumberInt);
 		} else if (action.equals("/")) {
 			result = division(firstNumberInt, secondNumberInt);
+		} else {
+			throw new IllegalArgumentException(EXCEPTION_MESSAGE);
 		}
 		return result;
 	}

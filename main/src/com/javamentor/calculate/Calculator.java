@@ -1,7 +1,7 @@
 package com.javamentor.calculate;
 
 import com.javamentor.calculate.io.ConsoleReader;
-import com.javamentor.calculate.servise.ConvertNumbers;
+import com.javamentor.calculate.servise.Calculation;
 
 public class Calculator {
 	private static final String MENU_TITLE_CHOISE = "Make a choice :";
@@ -11,17 +11,17 @@ public class Calculator {
 	private static final String MESSAGE_INPUT = "Input:";
 	private static final String MESSAGE_OUTPUT = "Output";
 	private ConsoleReader consoleReader;
-	private ConvertNumbers convertNumbers;
+	private Calculation calculation;
 
-	private Calculator(ConsoleReader consoleReader, ConvertNumbers convertNumbers) {
+	private Calculator(ConsoleReader consoleReader, Calculation calculation) {
 		this.consoleReader = consoleReader;
-		this.convertNumbers = convertNumbers;
+		this.calculation = calculation;
 	}
 
 	public static void main(String[] args) {
 		ConsoleReader consoleReader = new ConsoleReader();
-		ConvertNumbers convertNumbers = new ConvertNumbers();
-		Calculator calculate = new Calculator(consoleReader, convertNumbers);
+		Calculation calculation = new Calculation();
+		Calculator calculate = new Calculator(consoleReader, calculation);
 		calculate.runMenu();
 	}
 
@@ -50,9 +50,9 @@ public class Calculator {
 		printLineToConsole(MESSAGE_INPUT);
 		String input = consoleReader.readLine();
 		printLineToConsole(MESSAGE_OUTPUT);
-		String output = convertNumbers.inputToChar(input);
+		String output = calculation.inputToChar(input);
 		printLineToConsole(output);
-		
+
 	}
 
 	private void printLineToConsole(String stringToPrint) {

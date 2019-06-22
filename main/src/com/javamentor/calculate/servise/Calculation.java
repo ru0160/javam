@@ -2,12 +2,12 @@ package com.javamentor.calculate.servise;
 
 import static org.apache.commons.lang3.StringUtils.SPACE;
 
-public class ConvertNumbers {
+public class Calculation {
 	private static final String EXCEPTION_MESSAGE_ROMAN_OR_ARABIC = "Both numbers must be Arabic or Roman";
 	private static final String EXCEPTION_MESSAGE_WRONG_INPUT_NUMBER = "Both numbers must be between 1 and 10";
 	private static final String EXCEPTION_MESSAGE_NULL = "Null is not supported!";
 	private static final String EXCEPTION_MESSAGE_WRONG_FORMAT = "Wrong input format";
-	Ñalculation calculation = new Ñalculation();
+	MatematicOperationsNumber MatematicOperationsNumber = new MatematicOperationsNumber();
 	ConvertorRomeDigit convertorRomeDigit = new ConvertorRomeDigit();
 
 	public String inputToChar(String input) {
@@ -27,7 +27,7 @@ public class ConvertNumbers {
 			if (Character.isDigit(firstNumberChar[i])) {
 				tempFirst = tempFirst + String.valueOf(firstNumberChar[i]);
 			} else {
-				tempFirst = convertorRomeDigit.convert(firstNumberChar);
+				tempFirst = convertorRomeDigit.convertRomeToArab(firstNumberChar);
 				firstNumberRoman = true;
 			}
 		}
@@ -38,7 +38,7 @@ public class ConvertNumbers {
 			if (Character.isDigit(secondNumberChar[i])) {
 				tempSecond = tempSecond + String.valueOf(secondNumberChar[i]);
 			} else {
-				tempSecond = convertorRomeDigit.convert(secondNumberChar);
+				tempSecond = convertorRomeDigit.convertRomeToArab(secondNumberChar);
 				secondNumberRoman = true;
 			}
 		}
@@ -49,8 +49,12 @@ public class ConvertNumbers {
 		if (firstNumberInt < 1 || firstNumberInt > 10 || secondNumberInt < 1 || secondNumberInt > 10) {
 			throw new IllegalArgumentException(EXCEPTION_MESSAGE_WRONG_INPUT_NUMBER);
 		}
-		int result = calculation.calculateExpressions(firstNumberInt, secondNumberInt, action);
-		return String.valueOf(result);
+		int resultInt = MatematicOperationsNumber.calculateExpressions(firstNumberInt, secondNumberInt, action);
+		String result = String.valueOf(resultInt);
+		if (secondNumberRoman == true) {
+			result = convertorRomeDigit.convertArabToRome(resultInt);
+		}
+		return result;
 	}
 
 }
