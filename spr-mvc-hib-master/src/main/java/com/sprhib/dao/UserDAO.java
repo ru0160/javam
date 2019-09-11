@@ -1,14 +1,14 @@
-package com.sprhib.dao;
-
-import java.util.List;
+package com.sprhib.DAO;
 
 import com.sprhib.model.User;
 
+import java.util.List;
+
 public interface UserDAO {
-	 void addUser(User user);
-	 void updateUser(User user);
-	 User getUser(int id);
-	 void deleteUser(int id);
-	 List<User> getUsers();
+    void addUser(User user);
+    void updateUser(User user);
+    User getUser(int id);
+    void deleteUser(int id);
+//  List<User> getUsers();
 
 }

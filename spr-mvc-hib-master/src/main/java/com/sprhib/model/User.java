@@ -1,9 +1,6 @@
 package com.sprhib.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="users")
@@ -12,11 +9,14 @@ public class User {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	
+	@Column
 	private String name;
-	
+	@Column
 	private String password;
-	
+
+	public User(){
+
+	}
 	public Integer getId() {
 		return id;
 	}
