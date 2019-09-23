@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -18,11 +17,8 @@ public class UserDAOImpl implements UserDAO {
     public void addUser(User user) {
         em.persist(user);
     }
-
     public void updateUser(User user) {
-        User userToUpdate = getUser(user.getId());
-        userToUpdate.setName(user.getName());
-        userToUpdate.setPassword(user.getPassword());
+
         em.merge(user);
     }
 
@@ -31,10 +27,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     public void deleteUser(int id) {
-        String qlString = "delete from users where id=?";
-        Query query = em.createNativeQuery(qlString);
-        query.setParameter(1, id);
-        query.executeUpdate();
+        em.remove(em.find(User.class,id));
     }
 
     @SuppressWarnings("unchecked")
