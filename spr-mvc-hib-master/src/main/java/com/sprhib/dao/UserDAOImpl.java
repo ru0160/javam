@@ -18,7 +18,6 @@ public class UserDAOImpl implements UserDAO {
         em.persist(user);
     }
     public void updateUser(User user) {
-
         em.merge(user);
     }
 
