@@ -1,6 +1,7 @@
 package com.sprboot.controller;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
 
 @Controller
 public class AuthController {
@@ -22,12 +24,13 @@ public class AuthController {
     @RequestMapping("/success")
     public void loginPageRedirect(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException, ServletException {
 
-        String role = authResult.getAuthorities().toString();
-
-        if (role.contains("ADMIN")) {
-            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/admin/listUsers"));
-        } else if (role.contains("USER")) {
-            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/user/hi"));
+        Collection<? extends GrantedAuthority> role = authResult.getAuthorities();
+        for (GrantedAuthority grantedAuthority : role) {
+            if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+                response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/admin/listUsers"));
+            } else if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+                response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/user/hi"));
+            }
         }
     }
 }
