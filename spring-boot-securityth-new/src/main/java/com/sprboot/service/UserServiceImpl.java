@@ -1,9 +1,9 @@
 package com.sprboot.service;
 
-import com.sprboot.dao.RoleDAO;
-import com.sprboot.dao.UserDAO;
 import com.sprboot.model.Role;
 import com.sprboot.model.User;
+import com.sprboot.repository.RoleRepository;
+import com.sprboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
@@ -14,36 +14,36 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserRepository userRepository;
     @Autowired
-    private RoleDAO roleDAO;
+    private RoleRepository roleRepository;
 
     public void addUser(User user) {
         Set<Role> roles = new HashSet<>();
-        roles.add(roleDAO.getRole(1));
+        roles.add(roleRepository.findById(1));
         user.setRoles(roles);
-        userDAO.addUser(user);
+        userRepository.save(user);
     }
 
 
     public void updateUser(User user) {
-        userDAO.updateUser(user);
+        userRepository.save(user);
     }
 
     public User getUser(int id) {
-        return userDAO.getUser(id);
+        return userRepository.findById(id);
     }
 
     @Override
     public User getUserByName(String name) {
-        return userDAO.getUserByName(name);
+        return userRepository.findByName(name);
     }
 
     public void deleteUser(int id) {
-        userDAO.deleteUser(id);
+        userRepository.deleteById(id);
     }
 
     public List<User> getUsers() {
-        return userDAO.getUsers();
+        return (List<User>) userRepository.findAll();
     }
 }

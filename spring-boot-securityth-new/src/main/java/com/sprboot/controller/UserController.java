@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteUserById(@PathVariable int id) {
+    public ModelAndView deleteUserById(@PathVariable Integer id) {
         userService.deleteUser(id);
         ModelAndView mv = new ModelAndView("redirect:/admin/listUsers");
         return mv;
