@@ -7,7 +7,7 @@
 <body>
 <div class="container my-5">
     <h3> Add User</h3>
-    <form action="#" th:action="@{/admin/edit/{id}(id=${user.id})}"
+    <form action="#" th:action="@{/admin/edit/${user.id}}"
           th:object="${user}" method="post">
         <div class="row">
             <div class="form-group col-md-8">

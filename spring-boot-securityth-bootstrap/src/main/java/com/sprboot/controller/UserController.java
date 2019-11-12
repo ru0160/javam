@@ -1,15 +1,16 @@
 package com.sprboot.controller;
 
+import com.sprboot.model.Role;
 import com.sprboot.service.UserService;
 import com.sprboot.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -31,9 +32,10 @@ public class UserController {
     }
 
     @RequestMapping(value="/register/add", method=RequestMethod.POST)
-    public ModelAndView addingUser(@ModelAttribute User user) {
-        userService.addUser(user);
-        ModelAndView modelAndView = new ModelAndView("login");
+    public ModelAndView addingUser(@ModelAttribute User user, @RequestParam String role) {
+        userService.updateUser(user,role);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/admin/listUsers");
         return modelAndView;
     }
 
@@ -55,17 +57,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/edit/{id}", method = RequestMethod.POST)
-    public ModelAndView editUser(@ModelAttribute User user, @PathVariable Integer id) {
+    public ModelAndView editUser(@ModelAttribute User user, @PathVariable Integer id, @RequestParam String role) {
         ModelAndView modelAndView = new ModelAndView("list-of-users");
         user.setId(id);
-        userService.updateUser(user);
+        userService.updateUser(user,role);
         List<User> users = userService.getUsers();
         modelAndView.addObject("users", users);
         return modelAndView;
     }
 
     @RequestMapping(value = "/admin/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteUserById(@PathVariable int id) {
+    public ModelAndView deleteUserById(@PathVariable Integer id) {
         userService.deleteUser(id);
         ModelAndView mv = new ModelAndView("redirect:/admin/listUsers");
         return mv;
