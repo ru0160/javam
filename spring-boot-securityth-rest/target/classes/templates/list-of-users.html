@@ -1,0 +1,215 @@
+<!--<!DOCTYPE HTML>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <title>Users List</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Users List</h1>-->
+<!--<br/><br/>-->
+<!--<div th:switch="${users}">-->
+<!--    <h2 th:case="null">No users yet!</h2>-->
+<!--    <div th:case="*">-->
+<!--        <h2>Users</h2>-->
+<!--        <table border="1" style="width: 300px">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Name</th>-->
+<!--                <th>Password</th>-->
+<!--                <th>Edit</th>-->
+<!--                <th>Delete</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="user : ${users}">-->
+<!--                <td th:text="${user.name}"></td>-->
+<!--                <td th:text="${user.password}"></td>-->
+<!--                <td><a th:href="@{/admin/edit/{id}(id=${user.id})}">Edit</a></td>-->
+<!--                <td><a th:href="@{/admin/delete/{id}(id=${user.id})}">Delete</a></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--    <p><a href="/register">Add a new user</a></p>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script data-require="bootstrap@3.3.5" data-semver="3.3.5" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/admin.css">
+    <title>Sign in</title>
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#admin">Admin</a></li>
+                <li><a href="#user" role="tab" data-toggle="pill">User</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active fade in" id="admin">
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <div class="container">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li class="active"><a href="#message" role="tab" data-toggle="pill">Users table</a></li>
+                            <li><a href="#settings" role="tab" data-toggle="pill">New User</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active fade in" id="message">
+                                <div th:switch="${users}">
+                                    <h2 th:case="null">No users yet!</h2>
+                                    <div th:case="*">
+
+                                        <div class="panel-heading justify-content-center align-items-center head-user-table">
+                                            All users
+                                        </div>
+                                        <table class="table table-striped users-table" id="userstable">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Password</th>
+                                                <th>Role</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+<!--                                            <tr th:each="user : ${users}">-->
+<!--                                                <td th:text="${user.getId()}"></td>-->
+<!--                                                <td th:text="${user.name}"></td>-->
+<!--                                                <td th:text="${user.password}"></td>-->
+<!--                                                <td th:each="role : ${user.getRoles()}"-->
+<!--                                                    th:text="${role.getName()}">-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <button class="btn btn-info" data-toggle="modal" th:href="'#Modal' + ${user.getId()}">Edit</button>-->
+<!--                                                    <div th:id="'Modal' + ${user.getId()}"  class="modal fade" tabindex="-1">-->
+<!--                                                        <div class="modal-dialog" role="document">-->
+<!--                                                            <div class="modal-content" th:id="${user.getName()}">-->
+<!--                                                                <div class="modal-header text-center">-->
+<!--                                                                    <h4 class="modal-title w-100 font-weight-bold">Edit User</h4>-->
+<!--                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                                                        <span aria-hidden="true">&times;</span>-->
+<!--                                                                    </button>-->
+<!--                                                                </div>-->
+<!--                                                                <div class="modal-body mx-3">-->
+<!--                                                                    <div class="md-form mb-5">-->
+<!--                                                                        <form action="#" th:action="@{/admin/edit/{id}(id=${user.id})}"-->
+<!--                                                                              th:object="${user}" method="post">-->
+<!--                                                                            <div class="form-group">-->
+<!--                                                                                <fieldset disabled>-->
+<!--                                                                                    <label for="disabledTextInput">Disabled input</label>-->
+<!--                                                                                    <input type="text" id="disabledTextInput" class="form-control" th:placeholder="${user.getId()}">-->
+<!--                                                                                </fieldset>-->
+<!--                                                                            </div>-->
+<!--                                                                            <div class="form-group">-->
+<!--                                                                                <label for="name" class="col-form-label">Name</label>-->
+<!--                                                                                <input type="text" id="name" name="name" th:value="*{name}" class="form-control"/>-->
+<!--                                                                            </div>-->
+<!--                                                                            <div class="form-group">-->
+<!--                                                                                <label for="password" class="col-form-label">password</label>-->
+<!--                                                                                <input type="text" id="password" name="password" th:value="*{password}" class="form-control"/>-->
+<!--                                                                            </div>-->
+<!--                                                                            <div class="form-group">-->
+<!--                                                                                <label for="role" class="col-form-label">role</label>-->
+<!--                                                                                <input type="text" id="role" name="role"  class="form-control" th:each="role : ${user.getRoles()}"-->
+<!--                                                                                       th:value="${role.getName()}" />-->
+<!--                                                                            </div>-->
+<!--                                                                            <input type="submit" class="btn btn-primary" value="Add User">-->
+<!--                                                                        </form>-->
+<!--                                                                    </div>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+    <!--                                                <td>-->
+    <!--                                                    <a class="btn btn-default" href="@{/admin/delete/{id}">Delete</a>-->
+    <!--                                                </td>-->
+<!--                                            </tr>-->
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="settings">
+                                <div class="panel-heading justify-content-center align-items-center head-user-table">
+                                    Add new user
+                                </div>
+                                <div class="md-form mb-5 users-table">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-md-4"></div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <p></p>
+                                            <!--/*@thymesVar id="user" type="com"*/-->
+                                            <form th:action="@{/register/add}" method="post" th:object="${user}">
+
+                                                <div class="form-group">
+                                                    <label for="userName" class="col-form-label">Name</label>
+                                                    <input type="text" id="userName" name="name" class="form-control"/>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="userPassword" class="col-form-label">password</label>
+                                                    <input type="text" id="userPassword" name="password"  class="form-control"/>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="userRole" class="col-form-label">Role</label>
+                                                    <input type="text" id="userRole" name="role"  class="form-control"/>
+                                                </div>
+                                                <input type="submit" class="btn btn-primary" value="Add User">
+                                                <p></p>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div></div>
+            <div role="tabpanel" class="tab-pane fade" id="user">
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h2>Hi user</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+
+</html>
