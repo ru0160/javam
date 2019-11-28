@@ -95,8 +95,8 @@
                                                                             <input type="text" id="password" name="password"  class="form-control"/>
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="role" class="col-form-label">role</label>
-                                                                            <input type="text" id="role" name="role"  class="form-control">
+                                                                            <select style='width:300px' id="userRole">
+                                                                            </select>
                                                                         </div>
                                                                         <input type="submit" id="submitEdit" class="btn btn-primary" value="Edit User">
                                                                     </form>
@@ -106,9 +106,6 @@
                                                     </div>
                                                 </div>
                                                 </td>
-                                                <!--                                                    <td>-->
-                                                <!--                                                        <a class="btn btn-default" href="@{/admin/delete/{id}">Delete</a>-->
-                                                <!--                                                    </td>-->
                                             </tr>
 
                                             </tbody>
@@ -126,8 +123,8 @@
                                         <div class="col-sm-4 col-md-4"></div>
                                         <div class="col-sm-4 col-md-4">
                                             <p></p>
-                                            <!--/*@thymesVar id="user" type="com"*/-->
-                                            <form th:action="@{/register/add}" method="post" th:object="${user}">
+
+                                            <form>
 
                                                 <div class="form-group">
                                                     <label for="userName" class="col-form-label">Name</label>
@@ -139,10 +136,10 @@
                                                     <input type="text" id="userPassword" name="password"  class="form-control"/>
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label for="userRole" class="col-form-label">Role</label>
-                                                    <input type="text" id="userRole" name="role"  class="form-control"/>
+                                                <div class="form-group" id="selectAddUser">
+
                                                 </div>
+
                                                 <input type="submit" class="btn btn-primary"
                                                       id="AddUserBtn" value="Add User">
                                                 <p></p>
