@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script data-require="bootstrap@3.3.5" data-semver="3.3.5" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/admin.css">
+    <title>Sign in</title>
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#admin">Admin</a></li>
+                <li><a href="#user" role="tab" data-toggle="pill">User</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active fade in" id="admin">
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <div class="container">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li class="active"><a href="#message" role="tab" data-toggle="pill">Users table</a></li>
+                            <li><a href="#settings" role="tab" data-toggle="pill">New User</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active fade in" id="message">
+                                <div th:switch="${users}">
+                                    <h2 th:case="null">No users yet!</h2>
+                                    <div th:case="*">
+
+                                        <div class="panel-heading justify-content-center align-items-center head-user-table">
+                                            All users
+                                        </div>
+                                        <table class="table table-striped users-table" id="userstable">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Password</th>
+                                                <th>Role</th>
+                                                <th>Edit</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <div id="edituser"  class="modal fade" tabindex="-1">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header text-center">
+                                                                <h4 class="modal-title w-100 font-weight-bold">Edit User</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body mx-3">
+                                                                <div class="md-form mb-5">
+                                                                    <form id="formEdit"
+                                                                          method="post">
+                                                                        <div class="form-group">
+                                                                            <fieldset disabled>
+                                                                                <label for="disabledTextInput">Disabled input</label>
+                                                                                <input type="text" id="disabledTextInput" class="form-control">
+                                                                            </fieldset>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="nameUser" class="col-form-label">Name</label>
+                                                                            <input type="text" id="nameUser" name="nameUsers" value="" placeholder="123" class="form-control"/>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="password" class="col-form-label">password</label>
+                                                                            <input type="text" id="password" name="password"  class="form-control"/>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <select style='width:300px' id="userRole">
+                                                                            </select>
+                                                                        </div>
+                                                                        <input type="submit" id="submitEdit" class="btn btn-primary" value="Edit User">
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="settings">
+                                <div class="panel-heading justify-content-center align-items-center head-user-table">
+                                    Add new user
+                                </div>
+                                <div class="md-form mb-5 users-table">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-md-4"></div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <p></p>
+
+                                            <form>
+
+                                                <div class="form-group">
+                                                    <label for="userName" class="col-form-label">Name</label>
+                                                    <input type="text" id="userName" name="name" class="form-control"/>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="userPassword" class="col-form-label">password</label>
+                                                    <input type="text" id="userPassword" name="password"  class="form-control"/>
+                                                </div>
+
+                                                <div class="form-group" id="selectAddUser">
+
+                                                </div>
+
+                                                <input type="submit" class="btn btn-primary"
+                                                      id="AddUserBtn" value="Add User">
+                                                <p></p>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div></div>
+            <div role="tabpanel" class="tab-pane fade" id="user">
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h2>Hi user</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/admin.js"></script>
+</body>
+
+</html>
